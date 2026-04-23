@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+
+<!-- SEO Meta Tags -->
+<title>Seifert For Sheriff - Comment Intelligence Report</title>
+<meta property="og:title" content="Seifert For Sheriff - Comment Intelligence Report" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Seifert For Sheriff - Comment Intelligence Report" />
+<!-- End SEO Meta Tags -->
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=3441');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='nNVLzaH';
+  var apiBase='https://paymegpt.com';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ico-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M8 12h8M12 8v8"/></symbol>
+  <symbol id="ico-sword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 9.5L3 21M14.5 9.5L18 6l-4-4-3.5 3.5M14.5 9.5l2 2M21 3l-2.5 2.5M10 14l-2 2"/></symbol>
+  <symbol id="ico-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></symbol>
+  <symbol id="ico-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></symbol>
+  <symbol id="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+  <symbol id="ico-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="ico-cycle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></symbol>
+  <symbol id="ico-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol>
+  <symbol id="ico-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="ico-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
+  <symbol id="ico-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M3 6c0 3.31 2.24 6 5 6s5-2.69 5-6"/><path d="M16 6c0 3.31-2.24 6-5 6"/></symbol>
+  <symbol id="ico-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
+  <symbol id="ico-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="ico-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="ico-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+  <symbol id="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="ico-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="ico-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
+  <symbol id="ico-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></symbol>
+</svg>
+
+<div class="hero">
+  <svg class="star-svg" viewBox="0 0 120 120" fill="none">
+    <polygon points="60,8 73,44 112,44 81,67 93,103 60,80 27,103 39,67 8,44 47,44" fill="rgba(212,168,67,0.12)" stroke="#d4a843" stroke-width="2.5"/>
+    <polygon points="60,22 70,50 100,50 77,66 85,94 60,78 35,94 43,66 20,50 50,50" fill="rgba(212,168,67,0.18)" stroke="#f0c96a" stroke-width="1.5"/>
+    <circle cx="60" cy="60" r="16" fill="rgba(212,168,67,0.2)" stroke="#d4a843" stroke-width="1.5"/>
+  </svg>
+  <div class="hero-eyebrow">Facebook Ad - Comment Intelligence Report</div>
+  <h1>SEIFERT<span class="line2">FOR SHERIFF</span></h1>
+  <div class="hero-sub">Beaufort County, South Carolina - April 2026</div>
+  <div class="gold-rule"></div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="n">697</div><div class="l">Reactions</div></div>
+    <div class="hstat"><div class="n">99</div><div class="l">Comments</div></div>
+    <div class="hstat"><div class="n">106</div><div class="l">Shares</div></div>
+    <div class="hstat"><div class="n">8</div><div class="l">Key Themes</div></div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll to Explore</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7f8fa6" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<nav class="sticky-nav">
+  <button class="nav-btn active" onclick="navTo('themes',this)">Themes</button>
+  <button class="nav-btn" onclick="navTo('sentiment',this)">Sentiment</button>
+  <button class="nav-btn" onclick="navTo('opportunities',this)">Opportunities</button>
+  <button class="nav-btn" onclick="navTo('danger',this)">Remove Now</button>
+  <button class="nav-btn" onclick="navTo('strategy',this)">Strategy</button>
+</nav>
+
+<div id="themes"><div class="section-wrap">
+  <div class="section-eyebrow reveal">Volume Analysis</div>
+  <div class="section-title reveal">What People<br>Are Saying</div>
+  <p style="color:var(--offwhite);margin-bottom:32px;font-size:15px;line-height:1.7;max-width:640px;" class="reveal">Tap any theme row to expand the full breakdown and what it means for the campaign.</p>
+  <div class="theme-list reveal">
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(214,48,49,0.15);"><svg width="24" height="24"><use href="#ico-id" style="color:#e74c3c"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">ICE / Immigration</div><div class="bar-outer"><div class="bar-inner" data-width="92%" style="background:linear-gradient(90deg,#c0392b,#e74c3c);"></div></div></div>
+        <div class="theme-count-badge" style="color:#e74c3c;">12+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#ff6b6b;">Highest volume topic.</strong> Multiple commenters demanding Doug's stance on ICE cooperation. He posted a detailed clarification reply, BCSO is local not federal, earning 11 likes. That reply needs to be pinned. Key commenters: Donna Shucavage, Lupe Moreno Jr, Matthew Bryce Gordon, Andrew Carlson, Sarah O'Leary Takacs.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(225,112,85,0.15);"><svg width="24" height="24"><use href="#ico-sword" style="color:#e67e22"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">Seifert vs. JoJo Woodward</div><div class="bar-outer"><div class="bar-inner" data-width="78%" style="background:linear-gradient(90deg,#d35400,#e67e22);"></div></div></div>
+        <div class="theme-count-badge" style="color:#e67e22;">8+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#fab1a0;">CRITICAL, Unanswered.</strong> This is the #1 undecided voter question. Casey Porter, Laurel Raitt, and Matthew Bryce Gordon all asked "How are you different from JoJo?" Zero direct response visible. Every day this sits open is a vote going to Woodward.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(212,168,67,0.15);"><svg width="24" height="24"><use href="#ico-mic" style="color:#d4a843"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">"Sounds Like a Politician"</div><div class="bar-outer"><div class="bar-inner" data-width="65%" style="background:linear-gradient(90deg,#b8860b,#d4a843);"></div></div></div>
+        <div class="theme-count-badge" style="color:#d4a843;">6+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#f0c96a;">High-engagement skepticism.</strong> Sam Rentz got 13 likes, Mike Hengst 10 likes on variations of this. The video came across too polished. A polished reply makes it worse, needs to be raw, short, direct.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(41,128,185,0.15);"><svg width="24" height="24"><use href="#ico-map" style="color:#3498db"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">North of the Broad / Burton</div><div class="bar-outer"><div class="bar-inner" data-width="58%" style="background:linear-gradient(90deg,#1a5276,#2980b9);"></div></div></div>
+        <div class="theme-count-badge" style="color:#3498db;">5+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#7fb3d3;">Geographic vulnerability.</strong> Rose Ewing's comment, "It concerns me that this video is all of HILTON HEAD. No mention of north of the Broad," got 19 likes, the highest-liked critical comment in the entire thread. Shawn Seigler directly challenged Doug to show up in Burton. This is actively bleeding votes.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(108,52,131,0.15);"><svg width="24" height="24"><use href="#ico-link" style="color:#a569bd"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">Tanner Endorsement Problem</div><div class="bar-outer"><div class="bar-inner" data-width="48%" style="background:linear-gradient(90deg,#6c3483,#9b59b6);"></div></div></div>
+        <div class="theme-count-badge" style="color:#a569bd;">4+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#c39bd3;">Active liability.</strong> Multiple commenters using the Tanner endorsement as a reason to vote Woodward. "Manchurian sheriff" language is appearing. Silence reads as confirmation. Needs a confident, non-defensive reframe.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(39,174,96,0.15);"><svg width="24" height="24"><use href="#ico-users" style="color:#2ecc71"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">Support / Positive Base</div><div class="bar-outer"><div class="bar-inner" data-width="55%" style="background:linear-gradient(90deg,#1e8449,#27ae60);"></div></div></div>
+        <div class="theme-count-badge" style="color:#2ecc71;">15+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#55efc4;">Strong existing base.</strong> Guillermo Gonzalez (19 likes), Anthony Martucci (7 likes), Lynne Wood, Dony Neil, Eddie Hart, Shane Carroll all showing strong organic support. These supporters should be personally thanked, they're doing free campaign work at scale.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(26,188,156,0.15);"><svg width="24" height="24"><use href="#ico-cycle" style="color:#1abc9c"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">Insider vs. Change Paradox</div><div class="bar-outer"><div class="bar-inner" data-width="42%" style="background:linear-gradient(90deg,#1a6980,#17a589);"></div></div></div>
+        <div class="theme-count-badge" style="color:#1abc9c;">4+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#76d7c4;">Cuts both ways.</strong> People want change but worry 20 years on the force means more of the same. Kirb Pea: "This guy's been there for 20 years... So probably not much change will come." Danny Fogle: "Working there that long throws up red flags!" (3 likes). This is the core narrative battle of the entire campaign.</div>
+    </div>
+    <div class="theme-item" onclick="toggleTheme(this)">
+      <div class="theme-header">
+        <div class="theme-icon" style="background:rgba(93,109,126,0.15);"><svg width="24" height="24"><use href="#ico-clipboard" style="color:#95a5a6"/></svg></div>
+        <div class="theme-meta"><div class="theme-name-text">Staffing / Policy Details</div><div class="bar-outer"><div class="bar-inner" data-width="28%" style="background:linear-gradient(90deg,#5d6d7e,#85929e);"></div></div></div>
+        <div class="theme-count-badge" style="color:#95a5a6;">3+</div>
+        <div class="expand-icon"><svg width="14" height="14"><use href="#ico-chevron" style="color:#7f8fa6"/></svg></div>
+      </div>
+      <div class="theme-detail"><strong style="color:#bfc9ca;">Underserved opportunity.</strong> Eddie Hart (active LEO, 5 likes) flagged real hiring challenges: rotating shifts every two weeks, no lateral hire program. Engaging publicly on this wins law enforcement community trust immediately.</div>
+    </div>
+  </div>
+</div></div>
+
+<div id="sentiment" class="sentiment-wrap">
+  <div class="sentiment-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Sentiment Breakdown</div>
+      <div class="section-title" style="margin-bottom:28px;">The Room<br>Reading</div>
+      <div class="legend">
+        <div class="legend-row" onclick="highlightDonut(3)"><div class="legend-swatch" style="background:#27ae60;"></div><div class="legend-text-wrap"><div class="legend-text">Supportive / Pro-Seifert</div><div class="legend-note">Strong base, needs activating</div></div><div class="legend-pct" style="color:#27ae60;">38%</div></div>
+        <div class="legend-row" onclick="highlightDonut(2)"><div class="legend-swatch" style="background:#d4a843;"></div><div class="legend-text-wrap"><div class="legend-text">Questions / Undecided</div><div class="legend-note">Biggest winnable segment</div></div><div class="legend-pct" style="color:#d4a843;">34%</div></div>
+        <div class="legend-row" onclick="highlightDonut(1)"><div class="legend-swatch" style="background:#e67e22;"></div><div class="legend-text-wrap"><div class="legend-text">Skeptical / Critical</div><div class="legend-note">Addressable with right responses</div></div><div class="legend-pct" style="color:#e67e22;">18%</div></div>
+        <div class="legend-row" onclick="highlightDonut(0)"><div class="legend-swatch" style="background:#d63031;"></div><div class="legend-text-wrap"><div class="legend-text">Hostile / Off-Topic</div><div class="legend-note">Hide or ignore, do not engage</div></div><div class="legend-pct" style="color:#d63031;">10%</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="donut-container">
+        <svg width="260" height="260" viewBox="0 0 260 260">
+          <circle cx="130" cy="130" r="95" fill="none" stroke="#d63031" stroke-width="40" stroke-dasharray="59.7 537.3" stroke-dashoffset="0" class="donut-seg" style="transition:opacity 0.3s;"/>
+          <circle cx="130" cy="130" r="95" fill="none" stroke="#e67e22" stroke-width="40" stroke-dasharray="107.4 489.6" stroke-dashoffset="-59.7" class="donut-seg" style="transition:opacity 0.3s;"/>
+          <circle cx="130" cy="130" r="95" fill="none" stroke="#d4a843" stroke-width="40" stroke-dasharray="213.7 383.3" stroke-dashoffset="-167.1" class="donut-seg" style="transition:opacity 0.3s;"/>
+          <circle cx="130" cy="130" r="95" fill="none" stroke="#27ae60" stroke-width="40" stroke-dasharray="239.8 357.2" stroke-dashoffset="-380.8" class="donut-seg" style="transition:opacity 0.3s;"/>
+        </svg>
+        <div class="donut-label"><div class="pct">72%</div><div class="sub">Winnable</div></div>
+      </div>
+      <p style="text-align:center;color:var(--gray);font-size:12px;margin-top:16px;letter-spacing:1px;">Tap a row to highlight segment</p>
+    </div>
+  </div>
+</div>
+
+<div id="opportunities"><div class="section-wrap">
+  <div class="section-eyebrow reveal">Response Strategy</div>
+  <div class="section-title reveal">Response<br>Opportunities</div>
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+    <button class="filter-btn" onclick="filterCards('critical',this)"><svg width="10" height="10"><circle cx="5" cy="5" r="5" fill="#d63031"/></svg>Critical</button>
+    <button class="filter-btn" onclick="filterCards('address',this)"><svg width="10" height="10"><circle cx="5" cy="5" r="5" fill="#e67e22"/></svg>Address It</button>
+    <button class="filter-btn" onclick="filterCards('easy',this)"><svg width="10" height="10"><circle cx="5" cy="5" r="5" fill="#00b894"/></svg>Easy Win</button>
+  </div>
+  <div class="opp-grid reveal">
+    <div class="opp-card" data-type="critical">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-critical"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#d63031"/></svg>Critical</span><span class="opp-priority">Priority #1</span></div>
+        <h3>Seifert vs. JoJo Woodward</h3>
+        <p>Asked multiple times with zero direct answer. The #1 undecided voter question. Every day it goes unanswered is a vote bleeding out to Woodward.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box red">"JoJo has a strong record and I respect that. Here's the difference: I've spent 20 years inside BCSO watching what works and what doesn't. I know exactly where this department needs to go, not because I read a report, but because I lived it. I'm not running against JoJo. I'm running for Beaufort County."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="critical">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-critical"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#d63031"/></svg>Critical</span><span class="opp-priority">Priority #2</span></div>
+        <h3>North of the Broad</h3>
+        <p>Rose Ewing's comment got 19 likes, the highest-liked critical comment in the entire thread. Shawn Seigler challenged Doug directly to show up in Burton. This is actively bleeding votes.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box red">"We've been showing up across Beaufort County and that's not stopping. Next stops are north of the Broad. Burton, Lobeco, Ridgeland, Shell Point. Come meet us, we want to hear from you directly."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="critical">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-critical"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#d63031"/></svg>Critical</span><span class="opp-priority">Priority #3</span></div>
+        <h3>"Sounds Like a Politician"</h3>
+        <p>Sam Rentz (13 likes) and Mike Hengst (10 likes) both nailed this. A polished reply will make it worse. Must be raw, short, and real, no spin, no suit energy.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box red">"Fair shot. I'm a cop, not a politician. I don't do talking points, I do 20 years in uniform showing up for this community. That's who you get as Sheriff."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="address">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-address"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#e67e22"/></svg>Address It</span><span class="opp-priority">Priority #4</span></div>
+        <h3>The Tanner Endorsement</h3>
+        <p>Multiple commenters treating this as disqualifying. "Manchurian sheriff" language is appearing. Silence reads as confirmation, needs a confident non-defensive reframe.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box orange">"I appreciate Sheriff Tanner's support. I'll say this clearly: when I'm Sheriff, I make my own calls. My 20-year record stands on its own. Look at it, not at who endorsed me."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="easy">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-easy"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#00b894"/></svg>Easy Win</span><span class="opp-priority">5 min effort</span></div>
+        <h3>Women's Safety</h3>
+        <p>Jennifer Green: "Please help the women that are being stalked and harassed." 3 likes, zero response. One compassionate reply earns serious trust with female voters for almost no effort.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box green">"Jennifer, this matters deeply. Stalking and harassment cases don't always get the serious treatment they deserve. As Sheriff, that changes. You'll have my direct attention on this."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="easy">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-easy"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#00b894"/></svg>Easy Win</span><span class="opp-priority">5 min effort</span></div>
+        <h3>Meet and Greet Request</h3>
+        <p>Blair Larch asked about events. Just say yes and point to upcoming dates, especially north of the Broad. Turns a question into a campaign moment with zero effort.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box green">"YES, and we're making sure those events reach every corner of Beaufort County. Starting north of the Broad. Dates dropping soon, stay tuned."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="easy">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-easy"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#00b894"/></svg>Easy Win</span><span class="opp-priority">LEO credibility</span></div>
+        <h3>LEO Staffing and Recruitment</h3>
+        <p>Eddie Hart (active LEO, 5 likes) called out real hiring challenges: rotating shifts, no lateral entry. Agreeing publicly builds massive credibility with law enforcement community.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box green">"Eddie, you just described exactly what I want to fix. Fixed shifts and a real lateral hire program would transform BCSO's ability to recruit experienced officers. That's day-one policy for me."</div>
+      </div>
+    </div>
+    <div class="opp-card" data-type="easy">
+      <div class="opp-top">
+        <div class="opp-badge-row"><span class="opp-badge badge-easy"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#00b894"/></svg>Easy Win</span><span class="opp-priority">Conservative trust</span></div>
+        <h3>Constitution and Bill of Rights</h3>
+        <p>Claudia Turturro Termini's question got 10 likes. A clear direct answer here wins conservative trust immediately and costs nothing.</p>
+      </div>
+      <div class="opp-bottom">
+        <button class="script-toggle" onclick="toggleScript(this)"><svg width="12" height="12"><use href="#ico-play" style="color:#7f8fa6"/></svg>Show Draft Reply</button>
+        <div class="script-box green">"Absolutely. The Constitution is not optional. The Bill of Rights is not negotiable. A Sheriff who forgets that isn't doing the job."</div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<div id="danger"><div class="section-wrap">
+  <div class="section-eyebrow reveal">Moderation Required</div>
+  <div class="section-title reveal">Remove<br>Immediately</div>
+  <div class="danger-wrap reveal">
+    <div class="danger-header">
+      <div class="danger-icon-wrap"><svg width="28" height="28"><use href="#ico-alert" style="color:#ff6b6b"/></svg></div>
+      <h3>3 Comments Need Action Now</h3>
+    </div>
+    <p class="danger-sub">These create legal liability and reputational damage for the campaign. Do <strong>not</strong> engage with any of them. Hide or delete directly. Leaving them visible implies the page tolerates this content. Click to mark each as handled.</p>
+    <div class="danger-cards">
+      <div class="danger-card" id="dc1">
+        <div class="danger-card-ico"><svg width="22" height="22"><use href="#ico-mute" style="color:#ff6b6b"/></svg></div>
+        <div><div class="danger-card-name">Shonuff Brandon</div><div class="danger-card-text">Vulgar personal political attack with profanity directed at the candidate. Hide immediately, do not respond or engage under any circumstances.</div></div>
+        <button class="danger-action" onclick="acknowledge('dc1',this)">Mark Hidden</button>
+      </div>
+      <div class="danger-card" id="dc2">
+        <div class="danger-card-ico"><svg width="22" height="22"><use href="#ico-scale" style="color:#ff6b6b"/></svg></div>
+        <div><div class="danger-card-name">Joel Thacker</div><div class="danger-card-text">Explicit religious threat of violence. Creates serious legal and PR liability. Delete, not just hide.</div></div>
+        <button class="danger-action" onclick="acknowledge('dc2',this)">Mark Deleted</button>
+      </div>
+      <div class="danger-card" id="dc3">
+        <div class="danger-card-ico"><svg width="22" height="22"><use href="#ico-ban" style="color:#ff6b6b"/></svg></div>
+        <div><div class="danger-card-name">Jack Frozt</div><div class="danger-card-text">Racist comment about Hispanic workers. Leaving it visible implies the campaign tolerates racist speech. Hide immediately, no reply, no engagement.</div></div>
+        <button class="danger-action" onclick="acknowledge('dc3',this)">Mark Hidden</button>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<div id="strategy" class="strategy-section"><div class="strategy-inner">
+  <div class="section-eyebrow reveal">Big Picture</div>
+  <div class="section-title reveal">The Master<br>Narrative</div>
+  <div class="strategy-box reveal">
+    <h3>The Insider / Outsider Paradox</h3>
+    <p class="body-text">The campaign's biggest vulnerability is that voters want change but worry a 20-year BCSO veteran can't deliver it. The counter-narrative is clear: experience on the inside isn't a liability, it's the advantage. Turn the paradox into the pitch.</p>
+    <div class="narrative-callout">
+      <p>"I know exactly where this department needs to go<br>because I've seen it from the inside.<br>That's the advantage, not the liability."</p>
+    </div>
+  </div>
+  <div class="tactic-grid">
+    <div class="tactic-card reveal">
+      <div class="tactic-ico"><svg width="32" height="32"><use href="#ico-pin" style="color:#d4a843"/></svg></div>
+      <div class="tactic-title">Geographic Action Item</div>
+      <div class="tactic-text">Film a video specifically in Burton or north of the Broad. Show up there first. A single post addressing inland Beaufort County communities would flip undecided sentiment faster than any paid ad.</div>
+    </div>
+    <div class="tactic-card reveal">
+      <div class="tactic-ico"><svg width="32" height="32"><use href="#ico-target" style="color:#d4a843"/></svg></div>
+      <div class="tactic-title">Content Priority</div>
+      <div class="tactic-text">Answer the JoJo comparison in a short reel, not a comment. No suit, no script. That's the piece that converts undecided voters at scale and addresses the "too political" perception simultaneously.</div>
+    </div>
+    <div class="tactic-card reveal">
+      <div class="tactic-ico"><svg width="32" height="32"><use href="#ico-zap" style="color:#d4a843"/></svg></div>
+      <div class="tactic-title">Quick Wins This Week</div>
+      <div class="tactic-text">Pin the ICE clarification reply. Handle the 3 flagged comments. Drop personal replies to Guillermo Gonzalez (19 likes), Rose Ewing (19 likes), and Jennifer Green. That's 30 minutes of work with outsized impact.</div>
+    </div>
+  </div>
+</div></div>
+
+<footer><p>Prepared for <strong>Seifert For Sheriff</strong> Campaign &nbsp;·&nbsp; <strong>seifertsheriff.com</strong> &nbsp;·&nbsp; Beaufort County, SC &nbsp;·&nbsp; April 2026</p></footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
